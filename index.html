@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HmHow | Think it. Then ask how.</title>
+<meta name="description" content="High-utility AI prompt packs and minimalist digital study systems designed to help you learn faster and crush your semester with zero stress.">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --gold:#D4AF37; --gold-deep:#A67C00; --gold-soft:#FBF6E4; --ink:#141414; }
+  html { scroll-behavior: smooth; }
+  body { font-family:'Inter',sans-serif; color:var(--ink); background:#fff; }
+  .serif { font-family:'Playfair Display',serif; }
+  .gold-text { background:linear-gradient(135deg,#B8860B 0%,#D4AF37 45%,#A67C00 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .gold-bg { background:linear-gradient(135deg,#E9CF6B 0%,#D4AF37 50%,#B8860B 100%); }
+  .btn-gold { background:linear-gradient(135deg,#E9CF6B 0%,#D4AF37 50%,#BF9519 100%); color:#1a1400; font-weight:700; box-shadow:0 10px 26px -8px rgba(166,124,0,.6); transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+  .btn-gold:hover { transform:translateY(-2px); box-shadow:0 16px 32px -10px rgba(166,124,0,.7); filter:brightness(1.05); }
+  .btn-outline { border:1.5px solid var(--ink); color:var(--ink); transition:all .2s ease; }
+  .btn-outline:hover { background:var(--ink); color:#F3E5AB; transform:translateY(-2px); }
+
+  /* Gold style for Gumroad checkout buttons (beats gumroad.js defaults) */
+  a.gumroad-button.buy-btn {
+    background:linear-gradient(135deg,#E9CF6B 0%,#D4AF37 50%,#BF9519 100%) !important; color:#1a1400 !important;
+    font-family:'Inter',sans-serif !important; font-weight:700 !important; font-size:.875rem !important; line-height:1.25rem !important;
+    padding:.7rem 1.5rem !important; border-radius:9999px !important; border:0 !important;
+    box-shadow:0 8px 22px -8px rgba(166,124,0,.55) !important; text-decoration:none !important;
+    display:inline-block !important; height:auto !important; width:auto !important;
+    transition:transform .2s ease, box-shadow .2s ease, filter .2s ease !important;
+  }
+  a.gumroad-button.buy-btn:before, a.gumroad-button.buy-btn:after { content:none !important; display:none !important; }
+  a.gumroad-button.buy-btn:hover { transform:translateY(-2px) !important; filter:brightness(1.05) !important; box-shadow:0 14px 28px -10px rgba(166,124,0,.65) !important; }
+
+  .card { border:1px solid #efe6c8; transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  .card:hover { transform:translateY(-6px); border-color:var(--gold); box-shadow:0 24px 44px -20px rgba(166,124,0,.35); }
+  .card img { transition:transform .5s ease; }
+  .card:hover img { transform:scale(1.05); }
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.show { opacity:1; transform:none; }
+  .float-a { animation:floatA 6s ease-in-out infinite; }
+  .float-b { animation:floatB 7s ease-in-out infinite; }
+  .float-c { animation:floatA 8s ease-in-out infinite reverse; }
+  @keyframes floatA { 0%,100%{transform:translateY(0) rotate(var(--r,0deg));} 50%{transform:translateY(-12px) rotate(var(--r,0deg));} }
+  @keyframes floatB { 0%,100%{transform:translateY(0) rotate(var(--r,0deg));} 50%{transform:translateY(10px) rotate(var(--r,0deg));} }
+  .glow { background:radial-gradient(circle,rgba(212,175,55,.28),transparent 65%); }
+  .marquee { display:flex; width:max-content; animation:marquee 28s linear infinite; }
+  @keyframes marquee { to { transform:translateX(-50%); } }
+  .social { transition:all .2s ease; }
+
+  /* ===== Isometric hero scene ===== */
+  .iso-wrap { position:relative; width:480px; height:480px; }
+  .iso-stage { position:absolute; inset:0; transform-style:preserve-3d; transform:rotateX(58deg) rotateZ(-38deg); }
+  .iso-stage > * { position:absolute; transform-style:preserve-3d; }
+  .iso-glow { position:absolute; inset:0; pointer-events:none; }
+  .iso-glow::before { content:""; position:absolute; left:50%; top:52%; width:420px; height:420px; transform:translate(-50%,-50%); background:radial-gradient(circle,rgba(233,207,107,.55),rgba(212,175,55,.18) 45%,transparent 70%); filter:blur(8px); }
+  .iso-plate {
+    left:50px; top:50px; width:380px; height:380px; border-radius:28px; transform:translateZ(0);
+    background:
+      linear-gradient(rgba(212,175,55,.28) 1px,transparent 1px) 0 0/38px 38px,
+      linear-gradient(90deg,rgba(212,175,55,.28) 1px,transparent 1px) 0 0/38px 38px,
+      linear-gradient(135deg,#fffdf4,#fbf2cf);
+    border:1px solid rgba(212,175,55,.55);
+    box-shadow:0 0 0 8px rgba(255,255,255,.7), 0 30px 60px -10px rgba(166,124,0,.45);
+  }
+  .iso-shadow { background:radial-gradient(closest-side,rgba(80,55,0,.38),transparent); filter:blur(6px); transform:translateZ(1px); border-radius:50%; }
+  .iso-bob { animation:isoBob 6s ease-in-out infinite; transform:translateZ(var(--z)); }
+  @keyframes isoBob { 0%,100%{transform:translateZ(var(--z));} 50%{transform:translateZ(calc(var(--z) + 18px));} }
+
+  .pdf-card {
+    width:150px; height:200px; border-radius:14px; padding:14px;
+    background:linear-gradient(160deg,rgba(255,255,255,.82),rgba(255,255,255,.45));
+    border:1px solid rgba(212,175,55,.7);
+    box-shadow:0 14px 30px -10px rgba(120,90,0,.45), inset 0 0 0 1px rgba(255,255,255,.6);
+  }
+  .pdf-ico { width:30px; height:30px; border-radius:9px; background:linear-gradient(135deg,#E9CF6B,#B8860B); display:grid; place-items:center; font-size:15px; }
+  .pdf-title { font-weight:800; font-size:12px; line-height:1.2; margin-top:10px; color:#171717; }
+  .pdf-tag { display:inline-block; margin-top:6px; font-size:8px; font-weight:800; letter-spacing:.12em; color:#7a5a00; background:rgba(212,175,55,.2); padding:2px 6px; border-radius:99px; }
+  .pdf-line { height:5px; border-radius:99px; background:rgba(23,23,23,.12); margin-top:7px; }
+
+  .dev { background:linear-gradient(145deg,#3b3b3e,#232325); box-shadow:0 0 0 1px #0e0e0f, 0 3px 0 #1a1a1b, 0 6px 0 #151516, 0 9px 0 #111112, 0 24px 34px -8px rgba(0,0,0,.45); }
+  .mac { width:260px; height:170px; border-radius:14px; padding:9px; }
+  .ipad { width:124px; height:170px; border-radius:18px; padding:8px; }
+  .screen { width:100%; height:100%; background:#fff; overflow:hidden; position:relative; }
+  .mac .screen { border-radius:7px; padding:10px 12px; }
+  .ipad .screen { border-radius:11px; padding:10px 9px; }
+  .scr-dots { display:flex; gap:4px; margin-bottom:8px; }
+  .scr-dots i { width:6px; height:6px; border-radius:50%; background:#e5e5e5; display:block; }
+  .scr-dots i:first-child { background:#D4AF37; }
+  .scr-h { font-weight:900; font-size:14px; letter-spacing:-.02em; color:#141414; }
+  .scr-sub { font-size:7.5px; color:#8a8a8a; margin-top:1px; font-weight:600; }
+  .scr-row { display:flex; align-items:center; gap:6px; margin-top:7px; }
+  .scr-num { width:14px; height:14px; border-radius:50%; background:linear-gradient(135deg,#E9CF6B,#B8860B); font-size:7px; font-weight:800; display:grid; place-items:center; color:#1a1400; flex:none; }
+  .scr-bar { height:6px; border-radius:99px; background:#eee; flex:1; }
+  .scr-btn { position:absolute; right:12px; bottom:10px; background:linear-gradient(135deg,#E9CF6B,#BF9519); color:#1a1400; font-size:8px; font-weight:800; padding:4px 10px; border-radius:99px; }
+  .wk { display:flex; align-items:center; gap:5px; margin-top:7px; font-size:6.5px; font-weight:700; color:#777; }
+  .wk b { width:18px; flex:none; }
+  .wk span { display:block; height:7px; border-radius:99px; background:linear-gradient(90deg,#E9CF6B,#D4AF37); }
+  .wk em { display:block; height:7px; border-radius:99px; background:#eee; flex:1; }
+
+  .shape { border:2px solid rgba(212,175,55,.8); }
+  .shape.fill { background:rgba(233,207,107,.55); border:0; }
+  @media (prefers-reduced-motion: reduce) { .iso-bob, .float-a, .float-b, .float-c, .marquee { animation:none !important; } }
+  .social:hover { background:var(--gold); color:#1a1400; border-color:var(--gold); transform:translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b border-[#f1e8c9]">
+  <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3">
+      <img src="https://public-files.gumroad.com/5rmrodeakt6rx668aiy6lpr5yez4" alt="HmHow logo" class="w-9 h-9 rounded-full object-cover ring-2 ring-[#D4AF37]" onerror="this.outerHTML='<span class=&quot;w-9 h-9 rounded-full gold-bg grid place-items-center font-bold&quot;>H</span>'">
+      <span class="serif text-xl font-bold tracking-tight">Hm<span class="gold-text">How</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-600">
+      <a href="#products" class="hover:text-[#A67C00] transition">Products</a>
+      <a href="#why" class="hover:text-[#A67C00] transition">Why HmHow</a>
+      <a href="#about" class="hover:text-[#A67C00] transition">About</a>
+    </nav>
+    <a href="https://hmhow.gumroad.com" target="_blank" rel="noopener" class="btn-gold text-sm px-5 py-2 rounded-full">Visit Store</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="relative overflow-hidden">
+  <div class="glow absolute -top-32 -right-32 w-[560px] h-[560px] rounded-full"></div>
+  <div class="glow absolute -bottom-40 -left-32 w-[480px] h-[480px] rounded-full"></div>
+  <div class="relative max-w-6xl mx-auto px-5 py-16 md:py-24 grid md:grid-cols-2 gap-14 items-center">
+    <div class="reveal">
+      <h1 class="font-black uppercase leading-[.95] tracking-tight text-5xl sm:text-6xl lg:text-7xl">
+        Think it.<br><span class="gold-text">Then ask how.</span>
+      </h1>
+      <p class="mt-7 text-lg text-neutral-600 leading-relaxed max-w-lg">
+        High-utility AI prompt packs &amp; minimalist digital study systems designed to help you learn faster and crush your semester with zero stress.
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a href="#products" class="btn-gold px-9 py-4 rounded-full text-base">Get Started Now ⚡</a>
+        <span class="text-sm text-neutral-500">Instant PDF download · Secure Gumroad checkout</span>
+      </div>
+    </div>
+    <div class="relative h-[360px] sm:h-[480px] grid place-items-center reveal" aria-label="Illustration: MacBook and iPad showing AI prompt packs with floating PDF cards">
+      <div class="iso-wrap scale-[.68] sm:scale-100 origin-center">
+        <div class="iso-glow"></div>
+        <div class="iso-stage">
+          <div class="iso-plate"></div>
+
+          <!-- floating geometric accents -->
+          <div class="shape iso-bob" style="--z:60px; left:28px; top:70px; width:34px; height:34px; border-radius:8px; animation-delay:-1s;"></div>
+          <div class="shape fill iso-bob" style="--z:90px; left:380px; top:50px; width:22px; height:22px; border-radius:50%; animation-delay:-3s;"></div>
+          <div class="shape iso-bob" style="--z:40px; left:395px; top:330px; width:44px; height:44px; border-radius:50%; animation-delay:-2s;"></div>
+          <div class="shape fill iso-bob" style="--z:70px; left:40px; top:360px; width:26px; height:26px; transform:rotate(45deg); animation-delay:-4s;"></div>
+
+          <!-- soft shadows on the plate -->
+          <div class="iso-shadow" style="left:70px; top:210px; width:270px; height:190px;"></div>
+          <div class="iso-shadow" style="left:260px; top:230px; width:150px; height:200px;"></div>
+
+          <!-- PDF cards (stack behind devices) -->
+          <div class="pdf-card iso-bob" style="--z:36px; left:70px; top:48px; animation-delay:-.5s;">
+            <div class="pdf-ico">🎯</div>
+            <div class="pdf-title">Self-Learning<br>Prompts</div>
+            <span class="pdf-tag">PDF</span>
+            <div class="pdf-line" style="width:90%"></div><div class="pdf-line" style="width:70%"></div>
+          </div>
+          <div class="pdf-card iso-bob" style="--z:62px; left:112px; top:72px; animation-delay:-1.5s;">
+            <div class="pdf-ico">📚</div>
+            <div class="pdf-title">Study Prompts<br>Pack</div>
+            <span class="pdf-tag">95 PROMPTS</span>
+            <div class="pdf-line" style="width:90%"></div><div class="pdf-line" style="width:75%"></div><div class="pdf-line" style="width:55%"></div>
+          </div>
+          <div class="pdf-card iso-bob" style="--z:88px; left:154px; top:96px; animation-delay:-2.5s;">
+            <div class="pdf-ico">🗓️</div>
+            <div class="pdf-title">Semester<br>Planner</div>
+            <span class="pdf-tag">PDF</span>
+            <div class="pdf-line" style="width:90%"></div><div class="pdf-line" style="width:65%"></div>
+          </div>
+
+          <!-- MacBook screen -->
+          <div class="dev mac iso-bob" style="--z:128px; left:58px; top:190px; animation-delay:-1s;">
+            <div class="screen">
+              <div class="scr-dots"><i></i><i></i><i></i></div>
+              <div class="scr-h">Study Prompts Pack</div>
+              <div class="scr-sub">95 AI prompts · lessons, practice, exams</div>
+              <div class="scr-row"><span class="scr-num">1</span><span class="scr-bar" style="max-width:85%"></span></div>
+              <div class="scr-row"><span class="scr-num">2</span><span class="scr-bar" style="max-width:68%"></span></div>
+              <div class="scr-row"><span class="scr-num">3</span><span class="scr-bar" style="max-width:78%"></span></div>
+              <div class="scr-row"><span class="scr-num">4</span><span class="scr-bar" style="max-width:52%"></span></div>
+              <div class="scr-btn">Copy prompt</div>
+            </div>
+          </div>
+
+          <!-- iPad -->
+          <div class="dev ipad iso-bob" style="--z:170px; left:292px; top:226px; animation-delay:-3s;">
+            <div class="screen">
+              <div class="scr-dots"><i></i><i></i><i></i></div>
+              <div class="scr-h" style="font-size:11px">Semester Planner</div>
+              <div class="scr-sub">Plan your whole term</div>
+              <div class="wk"><b>WK 1</b><span style="width:70%"></span></div>
+              <div class="wk"><b>WK 2</b><span style="width:48%"></span><em></em></div>
+              <div class="wk"><b>WK 3</b><span style="width:82%"></span></div>
+              <div class="wk"><b>WK 4</b><span style="width:36%"></span><em></em></div>
+              <div class="wk"><b>WK 5</b><span style="width:60%"></span><em></em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="bg-[#141414] text-[#E9CF6B] overflow-hidden py-3 text-xs sm:text-sm font-bold tracking-[.25em] uppercase">
+  <div class="marquee" id="marquee"></div>
+</div>
+
+<!-- Products -->
+<section id="products" class="max-w-6xl mx-auto px-5 py-20">
+  <div class="max-w-2xl reveal">
+    <p class="text-xs font-bold tracking-[.25em] uppercase text-[#A67C00]">Featured Packs</p>
+    <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-3 leading-tight">Pick your weapon.</h2>
+    <p class="text-neutral-600 mt-4 text-lg">Tap Buy Now and the secure checkout opens instantly. Your files land seconds later.</p>
+  </div>
+  <div id="grid" class="grid md:grid-cols-3 gap-7 mt-12"></div>
+
+  <div class="mt-14 reveal">
+    <p class="text-xs font-bold tracking-[.25em] uppercase text-neutral-400">More packs</p>
+    <div id="more" class="grid md:grid-cols-3 gap-4 mt-4"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Why -->
+<section id="why" class="bg-[#FBF6E4]/60">
+  <div class="max-w-6xl mx-auto px-5 py-20">
+    <div class="max-w-2xl reveal">
+      <p class="text-xs font-bold tracking-[.25em] uppercase text-[#A67C00]">Why HmHow</p>
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-3 leading-tight">Less noise. More results.</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 mt-12">
+      <div class="reveal bg-white border border-[#efe6c8] rounded-3xl p-8">
+        <div class="w-12 h-12 rounded-2xl gold-bg grid place-items-center text-xl">⚡</div>
+        <h3 class="text-xl font-bold mt-6">Instant Access</h3>
+        <p class="text-neutral-600 mt-2 leading-relaxed">Download and start using your digital tools seconds after checkout.</p>
+      </div>
+      <div class="reveal bg-white border border-[#efe6c8] rounded-3xl p-8">
+        <div class="w-12 h-12 rounded-2xl gold-bg grid place-items-center text-xl">🎯</div>
+        <h3 class="text-xl font-bold mt-6">Zero Fluff, 100% Utility</h3>
+        <p class="text-neutral-600 mt-2 leading-relaxed">Prompts and systems built to be used, not admired. Every one is made for real academic results.</p>
+      </div>
+      <div class="reveal bg-white border border-[#efe6c8] rounded-3xl p-8">
+        <div class="w-12 h-12 rounded-2xl gold-bg grid place-items-center text-xl">🎓</div>
+        <h3 class="text-xl font-bold mt-6">Built for Students</h3>
+        <p class="text-neutral-600 mt-2 leading-relaxed">Designed to cut wasted study time and kill overwhelm, so you can focus on what actually counts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="max-w-4xl mx-auto px-5 py-24 text-center reveal">
+  <p class="text-xs font-bold tracking-[.25em] uppercase text-[#A67C00]">About HmHow</p>
+  <h2 class="text-3xl sm:text-5xl font-black tracking-tight mt-3 leading-tight">Studying is complex.<br><span class="gold-text">Your tools shouldn't be.</span></h2>
+  <p class="text-lg text-neutral-600 mt-8 leading-relaxed max-w-2xl mx-auto">
+    HmHow bridges the gap between complex studying and smart technology. We turn AI into simple, minimalist digital systems that help you understand more, stress less, and stay in control of your own thinking. No noise. No overwhelm. Just tools that work.
+  </p>
+  <a href="#products" class="btn-gold inline-block mt-9 px-9 py-4 rounded-full">Get Started Now ⚡</a>
+</section>
+
+<!-- Footer -->
+<footer class="bg-[#141414] text-neutral-300">
+  <div class="max-w-6xl mx-auto px-5 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="text-center md:text-left">
+      <p class="serif text-2xl font-bold text-white">Hm<span class="gold-text">How</span></p>
+      <p class="text-sm mt-1 text-neutral-400">HmHow | Think it. Then ask how.</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="https://www.tiktok.com/@hmhow_store" target="_blank" rel="noopener" aria-label="TikTok" class="social w-11 h-11 rounded-full border border-neutral-700 grid place-items-center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.7a5.6 5.6 0 0 1-3.4-1.9A5.6 5.6 0 0 1 14.8 1h-3.4v13.4a2.8 2.8 0 1 1-2-2.7V8.2a6.2 6.2 0 1 0 5.4 6.2V8.9a9 9 0 0 0 5.3 1.7V7.2c-.2 0-.4-.2-.5-.5z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/hmhow_store/" target="_blank" rel="noopener" aria-label="Instagram" class="social w-11 h-11 rounded-full border border-neutral-700 grid place-items-center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg>
+      </a>
+    </div>
+    <p class="text-sm text-neutral-500">© 2026 HmHow. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+const STORE_URL = "https://hmhow.gumroad.com";
+
+// Featured (in the order requested)
+const FEATURED = [
+  { title: "Self-Learning Prompts", desc: "Turn AI into your 24/7 personal tutor with 25 battle-tested prompts.", price: 0.99, tag: "25 prompts", img: "https://public-files.gumroad.com/28q8qq1jktyefuyekq35pbbeu9qd", slug: "self-learning-prompts" },
+  { title: "Study Prompts Pack", desc: "Turn heavy textbooks and notes into smart summaries and active recall systems, instantly.", price: 4.99, tag: "95 prompts", badge: "Best Value", img: "https://public-files.gumroad.com/884jw5q4v00jkkztidcqwbk31w6l", slug: "study-prompts-pack" },
+  { title: "Semester Study Planner", desc: "Clear roadmaps and minimalist digital systems to crush your assignments with zero stress.", price: 1.99, tag: "50 prompts", img: "https://public-files.gumroad.com/9zcy9r51tfw0tyz3yteel6jdw3ak", slug: "semester-study-planner" },
+];
+const MORE = [
+  { title: "Project Breakdown Prompts", desc: "50 prompts in 6 stages, from scope to closure.", price: 1.99, slug: "project-breakdown-prompts" },
+  { title: "Active Recall Prompts", desc: "50 prompts to make knowledge stick.", price: 1.99, slug: "active-recall-prompts" },
+  { title: "Daily Routine Architect", desc: "50 prompts to build your ideal day.", price: 1.99, slug: "daily-routine-architect" },
+];
+[...FEATURED, ...MORE].forEach(p => {
+  p.url = `${STORE_URL}/l/${p.slug}`;               // product page
+  p.checkout = `${STORE_URL}/l/${p.slug}?wanted=true`; // opens payment form directly
+});
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $ = s => document.querySelector(s);
+
+$("#grid").innerHTML = FEATURED.map(p => `
+  <article class="card reveal bg-white rounded-3xl overflow-hidden flex flex-col">
+    <a href="${esc(p.url)}" target="_blank" rel="noopener" class="block relative overflow-hidden aspect-[4/3] bg-[#FBF6E4]">
+      <img src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy" class="w-full h-full object-cover"
+           onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend','<div class=&quot;absolute inset-0 grid place-items-center text-6xl&quot;>📘</div>')">
+      <span class="absolute top-3 left-3 bg-white/95 text-[#7a5a00] text-xs font-bold px-3 py-1 rounded-full border border-[#eadfb4]">${esc(p.tag)}</span>
+      ${p.badge ? `<span class="absolute top-3 right-3 gold-bg text-[#1a1400] text-xs font-bold px-3 py-1 rounded-full">${esc(p.badge)}</span>` : ""}
+    </a>
+    <div class="p-6 flex flex-col flex-1">
+      <h3 class="text-xl font-extrabold leading-snug">${esc(p.title)}</h3>
+      <p class="text-neutral-600 text-sm mt-2 leading-relaxed flex-1">${esc(p.desc)}</p>
+      <div class="flex items-center justify-between mt-6 gap-3">
+        <span class="text-3xl font-black gold-text">$${p.price.toFixed(2)}</span>
+        <a class="gumroad-button buy-btn" href="${esc(p.checkout)}" data-gumroad-single-product="true" data-gumroad-overlay-checkout="true">Buy Now</a>
+      </div>
+      <a href="${esc(p.url)}" target="_blank" rel="noopener" class="mt-4 text-center text-xs font-semibold text-[#A67C00] hover:underline">View details →</a>
+    </div>
+  </article>`).join("");
+
+$("#more").innerHTML = MORE.map(p => `
+  <div class="card bg-white rounded-2xl p-5 flex items-center justify-between gap-4">
+    <div class="min-w-0">
+      <h4 class="font-bold truncate">${esc(p.title)}</h4>
+      <p class="text-xs text-neutral-500 mt-1">${esc(p.desc)}</p>
+    </div>
+    <a class="gumroad-button buy-btn" href="${esc(p.checkout)}" data-gumroad-single-product="true" data-gumroad-overlay-checkout="true">$${p.price.toFixed(2)}</a>
+  </div>`).join("");
+
+// Hero collage
+const pos = [
+  { cls:"float-a", style:"top:0; left:4%; --r:-8deg; width:52%;" },
+  { cls:"float-b", style:"top:14%; right:0; --r:7deg; width:52%;" },
+  { cls:"float-c", style:"bottom:0; left:24%; --r:-2deg; width:50%;" },
+];
+const collageEl = $("#collage");
+if (collageEl) collageEl.innerHTML = FEATURED.map((p,i) => `
+  <a href="${esc(p.url)}" target="_blank" rel="noopener" class="absolute ${pos[i].cls} rounded-2xl overflow-hidden bg-white border-4 border-white shadow-[0_25px_50px_-15px_rgba(120,90,0,.45)] ring-1 ring-[#D4AF37]/50" style="${pos[i].style}">
+    <img src="${esc(p.img)}" alt="${esc(p.title)}" class="w-full aspect-[4/3] object-cover" onerror="this.style.visibility='hidden'">
+  </a>`).join("");
+
+// Marquee
+const words = ["Active Recall","Self-Learning","Semester Plans","Smart Summaries","Zero Stress","Instant Access"];
+const strip = words.map(w => `<span class="px-6">${w}</span><span class="text-white/30">✦</span>`).join("");
+$("#marquee").innerHTML = strip + strip + strip + strip;
+
+// Reveal on scroll
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("show"); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+// Load Gumroad overlay AFTER the buttons exist
+const g = document.createElement("script");
+g.src = "https://gumroad.com/js/gumroad.js";
+g.async = true;
+document.body.appendChild(g);
+</script>
+</body>
+</html>
