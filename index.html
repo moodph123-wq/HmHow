@@ -230,7 +230,7 @@
         <p class="mt-3 text-neutral-300 leading-relaxed">1,000 structured AI prompts across 10 design workflows—from initial concept to final delivery</p>
       </div>
       <div class="flex shrink-0 flex-wrap items-center gap-5">
-        <span class="text-3xl font-black text-[#D4A017]">$9,99</span>
+        <span class="text-3xl font-black text-[#D4A017]">$9.99</span>
         <a class="gumroad-button buy-btn" href="https://hmhow.gumroad.com/l/designer-prompts-mega-pack" data-gumroad-single-product="true" data-gumroad-overlay-checkout="true">Get the pack</a>
       </div>
     </div>
@@ -304,7 +304,6 @@
 <script>
 const STORE_URL = "https://hmhow.gumroad.com";
 
-// Featured (in the order requested)
 const FEATURED = [
   { title: "Self-Learning Prompts", desc: "Turn AI into your 24/7 personal tutor with 25 battle-tested prompts.", price: 0.99, tag: "25 prompts", img: "https://public-files.gumroad.com/28q8qq1jktyefuyekq35pbbeu9qd", slug: "self-learning-prompts" },
   { title: "Study Prompts Pack", desc: "Turn heavy textbooks and notes into smart summaries and active recall systems, instantly.", price: 4.99, tag: "95 prompts", badge: "Best Value", img: "https://public-files.gumroad.com/884jw5q4v00jkkztidcqwbk31w6l", slug: "study-prompts-pack" },
@@ -316,8 +315,8 @@ const MORE = [
   { title: "Daily Routine Architect", desc: "50 prompts to build your ideal day.", price: 1.99, slug: "daily-routine-architect" },
 ];
 [...FEATURED, ...MORE].forEach(p => {
-  p.url = `${STORE_URL}/l/${p.slug}`;               // product page
-  p.checkout = `${STORE_URL}/l/${p.slug}?wanted=true`; // opens payment form directly
+  p.url = `${STORE_URL}/l/${p.slug}`;
+  p.checkout = `${STORE_URL}/l/${p.slug}?wanted=true`;
 });
 
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -327,7 +326,7 @@ $("#grid").innerHTML = FEATURED.map(p => `
   <article class="card reveal bg-white rounded-3xl overflow-hidden flex flex-col">
     <a href="${esc(p.url)}" target="_blank" rel="noopener" class="block relative overflow-hidden aspect-[4/3] bg-[#FBF6E4]">
       <img src="${esc(p.img)}" alt="${esc(p.title)}" loading="lazy" class="w-full h-full object-cover"
-           onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend','<div class=&quot;absolute inset-0 grid place-items-center text-6xl&quot;>📘</div>')">
+            onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend','<div class=&quot;absolute inset-0 grid place-items-center text-6xl&quot;>📘</div>')">
       <span class="absolute top-3 left-3 bg-white/95 text-[#7a5a00] text-xs font-bold px-3 py-1 rounded-full border border-[#eadfb4]">${esc(p.tag)}</span>
       ${p.badge ? `<span class="absolute top-3 right-3 gold-bg text-[#1a1400] text-xs font-bold px-3 py-1 rounded-full">${esc(p.badge)}</span>` : ""}
     </a>
@@ -350,18 +349,6 @@ $("#more").innerHTML = MORE.map(p => `
     </div>
     <a class="gumroad-button buy-btn" href="${esc(p.checkout)}" data-gumroad-single-product="true" data-gumroad-overlay-checkout="true">$${p.price.toFixed(2)}</a>
   </div>`).join("");
-
-// Hero collage
-const pos = [
-  { cls:"float-a", style:"top:0; left:4%; --r:-8deg; width:52%;" },
-  { cls:"float-b", style:"top:14%; right:0; --r:7deg; width:52%;" },
-  { cls:"float-c", style:"bottom:0; left:24%; --r:-2deg; width:50%;" },
-];
-const collageEl = $("#collage");
-if (collageEl) collageEl.innerHTML = FEATURED.map((p,i) => `
-  <a href="${esc(p.url)}" target="_blank" rel="noopener" class="absolute ${pos[i].cls} rounded-2xl overflow-hidden bg-white border-4 border-white shadow-[0_25px_50px_-15px_rgba(120,90,0,.45)] ring-1 ring-[#D4AF37]/50" style="${pos[i].style}">
-    <img src="${esc(p.img)}" alt="${esc(p.title)}" class="w-full aspect-[4/3] object-cover" onerror="this.style.visibility='hidden'">
-  </a>`).join("");
 
 // Marquee
 const words = ["Active Recall","Self-Learning","Semester Plans","Smart Summaries","Zero Stress","Instant Access"];
